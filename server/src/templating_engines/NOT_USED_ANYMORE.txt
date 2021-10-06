@@ -1,0 +1,1 @@
+views are not used anymore since working with REST

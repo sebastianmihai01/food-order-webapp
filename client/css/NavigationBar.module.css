@@ -1,0 +1,23 @@
+nav{
+    float:right;
+}
+nav li {
+    display: inline-block;
+    margin-left: 50px;
+    padding-top: 0.4em;
+    position: relative;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav a{
+    color: white;
+    text-decoration:none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size:1.6em;
+}

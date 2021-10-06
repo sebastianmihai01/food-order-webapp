@@ -1,41 +1,73 @@
-import { Router } from 'express';
-import { Post } from '../models/post';
-
-type RequestBody = { text: string };
-type RequestParams = { postId: string };
-let posts: Post[] = [];
+import { Router } from "express";
+import { Post } from "../models/post";
+import * as path from "path";
+import { randomInt } from "crypto";
+import internal from "stream";
 const router = Router();
 
-router.get('/', (req, res, next) => {
-  res.status(200).json({ "get request" : "done" });
+type RequestBody = { text: string };
+// type RequestHeader = { text: string };
+type RequestParams = { postId: string };
+
+const ERROR_PATH = path.join(
+  __dirname,
+  "..",
+  "templating_engines",
+  "error.html"
+);
+let posts: Post[] = [];
+
+router.get("/", (req, res, next) => {
+  res.status(200).json({ "get request": "done" });
 });
 
-router.post('/post', (req, res, next) => {
+router.get("/post/:postId", (req, res, next) => {
+  const params = req.params as RequestParams;
+  var getPost = {} as Post;
+  
+  for (let x of posts) {
+    if (x._id.toString() == params.postId) getPost = x;
+  }
+  const postIndex = posts.findIndex(
+    (postItem) => postItem._id.toString() === getPost._id.toString()
+  );
+
+  if (postIndex === -1 ) 
+    res.status(404).json({message: "Post not found"})
+  else res.status(200).json({message: "Post found!", post:getPost})
+});
+
+router.post("/post", (req, res, next) => {
   const body = req.body as RequestBody;
   const newPost: Post = {
-    id: new Date().toISOString(),
+    _id: Math.random(),
+    title: body.text.split("")[1],
     text: body.text,
   };
   posts.push(newPost);
-  res.status(201).json({ message: 'Added a new ost', post: newPost, posts: posts});
+  res
+    .status(201)
+    .json({ message: "Added a new post", post: newPost, posts: posts });
 });
 
-router.put('/post/:postId', (req, res, next) => {
+router.put("/post/:postId", (req, res, next) => {
   const params = req.params as RequestParams;
   const tid = params.postId;
   const body = req.body as RequestBody;
-  const postIndex = posts.findIndex((postItem) => postItem.id === tid);
+  const postIndex = posts.findIndex(
+    (postItem) => postItem._id.toString() === tid
+  );
   if (postIndex >= 0) {
-    posts[postIndex] = { id: posts[postIndex].id, text: body.text };
-    return res.status(200).json({ message: 'Updated post', posts: posts });
+    posts[postIndex] = { _id: posts[postIndex]._id, text: body.text };
+    return res.status(200).json({ message: "Updated post", posts: posts });
   }
-  res.status(404).json({ message: 'Could not find post for this id.' });
+  res.status(404).json({ message: "Could not find post for this id." });
 });
 
-router.delete('/post/:postId', (req, res, next) => {
+router.delete("/post/:postId", (req, res, next) => {
   const params = req.params as RequestParams;
-  posts = posts.filter((postItem) => postItem.id !== params.postId);
-  res.status(200).json({ message: 'Deleted post', posts: posts });
+  posts = posts.filter((postItem) => postItem._id.toString() !== params.postId);
+  res.status(200).json({ message: "Deleted post", posts: posts });
 });
 
 export default router;
