@@ -10,8 +10,8 @@ export class UserPost {
   date?: string;
   text?: string;
 
-  constructor(id:number, userId:number, title:string, date?:string, text?:string){
-    this._id = id!;
+  constructor(userId:number, title:string, date?:string, text?:string){
+    this._id = Math.random().toString()
     this.title = title;
     if(date != null)
       this.date = date;
@@ -25,8 +25,8 @@ export class UserPost {
     //add to db
   }
 
-  static getAll(){
-    return null;
+  static fetchPosts(){
+    return {"" : ""};
   }
 }
 
