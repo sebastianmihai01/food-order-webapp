@@ -24,6 +24,10 @@ export class UserPost {
   save(){
     //add to db
   }
+
+  static getAll(){
+    return null;
+  }
 }
 
 var post = '' as string;

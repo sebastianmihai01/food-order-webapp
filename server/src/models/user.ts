@@ -1,6 +1,6 @@
 import * as post from './post'
 
-export interface User {
+export class User {
     _id: number;
     name: string;
     posts: post.Post[]
@@ -8,6 +8,10 @@ export interface User {
     gender?: string;
     email: string;
     password: string;
+
+    constructor(_id:number, name:string){
+      
+    }
   }
   
   var test = 'test' as string;

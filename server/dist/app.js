@@ -33,11 +33,18 @@ app.set("title", "Online Food Order Webapp");
 app.set("view engine", "ejs");
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
+// Solving CORS errors
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 app.use(routes_1.default);
 /** used for testing only
  *  express looks at the file extension and matches it */
 app.use(express_1.default.static(path.join(__dirname, "public")));
-app.listen({ port: 3000 });
+app.listen({ port: 8080 });
 /*
 
 Documentation for myself:

@@ -27,6 +27,21 @@ let posts = [];
 router.get("/", (req, res, next) => {
     res.status(200).json({ "get request": "done" });
 });
+router.get("/items/", (req, res, next) => {
+    const items = [
+        {
+            name: "name",
+            height: "height",
+            mass: "mass",
+        },
+        {
+            name: "name1",
+            height: "height1",
+            mass: "mass1",
+        },
+    ];
+    res.status(200).json(items);
+});
 router.get("/post/:postId", (req, res, next) => {
     const params = req.params;
     var getPost = {};
@@ -36,7 +51,7 @@ router.get("/post/:postId", (req, res, next) => {
     }
     const postIndex = posts.findIndex((postItem) => postItem._id.toString() === getPost._id.toString());
     if (postIndex === -1)
-        res.status(404).json({ message: "Post not found" });
+        res.status(301).json({ message: "Post not found" });
     else
         res.status(200).json({ message: "Post found!", post: getPost });
 });
