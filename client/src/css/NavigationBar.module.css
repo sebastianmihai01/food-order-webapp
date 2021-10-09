@@ -3,7 +3,7 @@ nav{
 }
 nav li {
     display: inline-block;
-    margin-left: 50px;
+    margin-left: 20px;
     padding-top: 0.4em;
     position: relative;
 }
@@ -11,6 +11,7 @@ nav li {
 nav ul {
     margin: 0;
     padding: 0;
+    word-spacing: 50px;
     list-style: none;
 }
 
@@ -19,5 +20,13 @@ nav a{
     text-decoration:none;
     text-transform: uppercase;
     font-weight: bold;
-    font-size:1.6em;
+    font-size:1.2em;
+}
+
+browseNav {
+    color: white;
+    text-decoration:none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size:1.2em;
 }

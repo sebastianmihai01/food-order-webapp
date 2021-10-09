@@ -1,5 +1,6 @@
 import classes from "../../css/Card.module.css";
 const Card = (props) => {
+
   // let itemList = [];
   // props.list.map((meal) =>
   //   itemList.push({

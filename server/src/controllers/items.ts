@@ -1,11 +1,17 @@
 import { User } from "../models/user";
 import { Post } from "../models/post";
+import {Cart} from './cart'
 
 let users: User[] = [];
 let posts: Post[] = [];
 type RequestParams = { postId: string };
 type RequestBody = { text: string };
 const queryString = window.location.search;
+
+
+export function deletePost(){
+   Cart.deleteProduct( () => console.log("something") )
+}
 
 export function getAddPosts(res: any, req: any, next: any) {
   res.status(404);
@@ -35,5 +41,9 @@ export function getOneItem(req: any, res: any, next: any) {
   const fetchedProduct = posts.find(elem => elem._id.toString() == params.id)
   // search for the item in the database
   res.status(200).json(fetchedProduct);
+}
+
+function getProductsFromDatabase(products: any) {
+  throw new Error("Function not implemented.");
 }
 

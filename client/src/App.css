@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.mainbody{
+  top: 30em;
+  align-self: center;
+  position: absolute;
+  align-items: center;
+  background-color: #4a4c50;
+
+}
